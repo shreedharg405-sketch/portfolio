@@ -1,9 +1,295 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=../index.html#contact">
-    <title>Contact | SHREEDHAR G</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nomination Form | The Big Bull</title>
+
+  <!-- Bootstrap & AOS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+  <style>
+    body {
+      background-color: #f6f4f1;
+      font-family: 'Poppins', sans-serif;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    .glow-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -2;
+    }
+
+    .glow-bg span {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.5;
+      animation: float 10s ease-in-out infinite alternate;
+    }
+
+    .glow-bg .maroon {
+      width: 300px;
+      height: 300px;
+      background: #800000;
+      top: 10%;
+      left: 5%;
+    }
+
+    .glow-bg .gold {
+      width: 250px;
+      height: 250px;
+      background: #d4af37;
+      bottom: 15%;
+      right: 10%;
+    }
+
+    .glow-bg .white {
+      width: 200px;
+      height: 200px;
+      background: #f6f4f1;
+      top: 40%;
+      left: 50%;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px) rotate(0deg); }
+      100% { transform: translateY(-30px) rotate(10deg); }
+    }
+
+    .form-wrapper {
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+
+    .form-side {
+      background: url('../assets/projects/sovereign-awards/awardslogo.png') no-repeat center center/cover;
+      color: #fff;
+      position: relative;
+      padding: 40px;
+      min-height: 100%;
+    }
+
+    .form-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(20, 0, 0, 0.7);
+      z-index: 1;
+    }
+
+    .form-side h1,
+    .form-side h2,
+    .form-side p,
+    .form-side small,
+    .form-side form {
+      position: relative;
+      z-index: 2;
+    }
+
+    .form-side h1 {
+      font-weight: bold;
+      color: #ffd700;
+    }
+
+    .form-side h2 {
+      color: #f05c5c;
+      font-weight: 600;
+      font-size: 20px;
+    }
+
+    .form-side small {
+      color: #ffaaaa;
+      display: block;
+      margin-top: 10px;
+    }
+
+    .form-control,
+    .form-select {
+      background-color: rgba(255, 255, 255, 0.95);
+      border: 1px solid #ccc;
+      color: #000;
+      border-radius: 8px;
+    }
+
+    .form-control::placeholder {
+      color: #555;
+    }
+
+    .btn-gold {
+      background-color: #d4af37;
+      border: none;
+      color: #000;
+      border-radius: 8px;
+    }
+
+    .btn-gold:hover {
+      background-color: #c49f2d;
+    }
+
+    .help-box {
+      text-align: center;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      width: 100%;
+    }
+
+    .help-box h4 {
+      color: #800000;
+      margin-bottom: 10px;
+    }
+
+    .help-box p {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 5px;
+    }
+
+    .qr-image {
+      width: 100px;
+      height: 100px;
+      margin: 10px auto;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: gold;
+    }
+
+    @media (max-width: 767.98px) {
+      .form-side {
+        text-align: center;
+      }
+    }
+  </style>
 </head>
-<body><script>window.location.href = "../index.html#contact";</script></body>
+<body>
+
+  <!-- Glowing Background -->
+  <div class="glow-bg">
+    <span class="maroon"></span>
+    <span class="gold"></span>
+    <span class="white"></span>
+  </div>
+
+  <!-- Centered Container -->
+  <div class="container-fluid min-vh-100 d-flex justify-content-center align-items-center px-3">
+    <div class="form-wrapper row g-0 w-100" style="max-width: 1200px;">
+      
+      <!-- Left Side (Form) -->
+      <div class="col-lg-8 form-side" data-aos="fade-down">
+        <div class="form-overlay"></div>
+        <div class="p-4">
+          <h1>Nomination Form</h1>
+          <h2 data-aos="fade-up" data-aos-delay="100">Free to Nominate for Limited Time</h2>
+          <p class="text-light" data-aos="fade-up" data-aos-delay="200">Please fill the form to nominate your company.</p>
+          <small data-aos="fade-up" data-aos-delay="300">
+            Note: We recommend using your <b>official email ID</b>. Personal emails like @gmail, @yahoo may be disqualified.
+          </small>
+
+          <form class="mt-4" action="Contact.php" method="POST">
+            <div class="row mb-3" data-aos="zoom-in-up" data-aos-delay="400">
+              <div class="col-md-6 mb-3 mb-md-0">
+                <input type="text" class="form-control" name="company_name" placeholder="Company Name *" required>
+              </div>
+              <div class="col-md-6">
+                <input type="text" class="form-control" name="your_name" placeholder="Your Name *" required>
+              </div>
+            </div>
+
+            <div class="row mb-3" data-aos="zoom-in-up" data-aos-delay="500">
+              <div class="col-md-4 mb-3 mb-md-0">
+                <input type="email" class="form-control" name="email" placeholder="Official Email *" required>
+              </div>
+              <div class="col-md-4 mb-3 mb-md-0">
+                <input type="tel" class="form-control" name="whatsapp" placeholder="WhatsApp Number *" required>
+              </div>
+              <div class="col-md-4">
+                <select class="form-select" name="category" required>
+                  <option selected disabled>Select Award *</option>
+                  <option>Best Crypto Exchange Of The Year</option>
+                  <option>Most Innovative Payment Solution</option>
+                  <option>Fintech Leader Of The Year</option>
+                  <option>Excellence In Blockchain Technology</option>
+                  <option>Best Forex Broker</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-check mb-3" data-aos="fade-up" data-aos-delay="600">
+              <input class="form-check-input" type="checkbox" name="agree" id="agreeCheck" required>
+              <label class="form-check-label" for="agreeCheck">
+                I agree to the <a href="#">terms & conditions</a> and <a href="#">policies</a>.
+              </label>
+            </div>
+
+            <button id="submitBtn" type="submit" class="btn btn-gold px-4 py-2 d-flex align-items-center justify-content-center" data-aos="zoom-in" data-aos-delay="800">
+              <span id="btnText">Submit Nomination</span>
+              <div id="btnSpinner" class="spinner-border spinner-border-sm text-dark ms-2 d-none" role="status"></div>
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Right Side (Help Panel) -->
+      <div class="col-lg-4 bg-light d-flex align-items-center justify-content-center p-4" data-aos="fade-left" data-aos-delay="400">
+        <div class="help-box w-100" data-aos="zoom-in-left" data-aos-delay="500">
+          <h4>Need Help?</h4>
+          <p><strong>WhatsApp:</strong> +91 96006 25013</p>
+          <p><strong>Email: <br>General: hello@sovereignawards.com
+                            <br>Sponsorships: sponsor@sovereignawards.com
+                            <br>Media/Press: media@sovereignawards.com</strong></p>
+          <img src="../assets/projects/sovereign-awards/Scan the QR.jpg" alt="Scan to WhatsApp" class="qr-image" />
+          <a href="#" class="btn btn-success btn-sm">Click to Chat</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- JS Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 1000,
+      once: true
+    });
+
+    document.querySelector('form').addEventListener('submit', function(e) {
+      const submitBtn = document.getElementById('submitBtn');
+      const btnText = document.getElementById('btnText');
+      const btnSpinner = document.getElementById('btnSpinner');
+
+      btnText.textContent = 'Submitting...';
+      btnSpinner.classList.remove('d-none');
+      submitBtn.disabled = true;
+
+      setTimeout(() => {
+        btnText.textContent = 'Submitted ✔';
+        btnSpinner.classList.add('d-none');
+
+        setTimeout(() => {
+          btnText.textContent = 'Submit Nomination';
+          submitBtn.disabled = false;
+          document.querySelector('form').reset();
+        }, 2000);
+      }, 3000);
+    });
+  </script>
+</body>
 </html>
