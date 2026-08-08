@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System - Mark Attendance</title>
+    <!-- Google Font Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS Modules -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/tables.css">
+</head>
+
+<body>
+
+    <!-- Network Loader overlay -->
+    <div class="network-status-pill hidden" id="network-status-pill">
+        <div class="network-spinner"></div>
+        <span id="network-status-text">Loading...</span>
+    </div>
+
+    <!-- Main Screen Container -->
+    <div class="app-container hidden" id="app-screen">
+        
+        <!-- Sidebar Navigation Drawer -->
+        <aside class="sidebar" id="app-sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>STUDENTMS</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item" id="nav-item-dash" data-view="dashboard">
+                        <i class="fa-solid fa-chart-pie"></i>
+                        <span>Dashboard</span>
+                    </li>
+                    <li class="nav-item" id="nav-item-add" data-view="add-student">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span>Register Student</span>
+                    </li>
+                    <li class="nav-item" id="nav-item-list" data-view="view-students">
+                        <i class="fa-solid fa-address-book"></i>
+                        <span>Student Directory</span>
+                    </li>
+                    <li class="nav-item active" id="nav-item-att" data-view="attendance">
+                        <i class="fa-solid fa-calendar-check"></i>
+                        <span>Mark Attendance</span>
+                    </li>
+                    <li class="nav-item" id="nav-item-anal" data-view="count-students">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span>Registry Analytics</span>
+                    </li>
+                    <li class="nav-item" id="nav-item-set" data-view="settings">
+                        <i class="fa-solid fa-gears"></i>
+                        <span>Visual Settings</span>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <li class="nav-item" id="nav-sign-out" style="list-style: none; padding: 12px 16px; margin: 0 16px; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 12px; color: var(--danger); cursor: pointer; font-size: 14px; font-weight: 600; transition: all var(--transition-fast);">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Sign Out</span>
+                </li>
+            </div>
+        </aside>
+
+        <!-- Right Side Main Content Window -->
+        <main class="main-content">
+            
+            <!-- Top Action Header -->
+            <header class="app-header">
+                <div style="display: flex; align-items: center; gap: 14px;">
+                    <button class="menu-toggle" id="menu-toggle-btn">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div>
+                        <h1 class="header-title" id="view-title">Mark Attendance</h1>
+                        <p class="header-subtitle" id="view-path-subtitle">Manage student attendance sessions</p>
+                    </div>
+                </div>
+                
+                <div style="display: flex; align-items: center; gap: 16px;">
+                    <button class="theme-toggle" id="header-theme-toggle" title="Toggle Light/Dark Theme">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                    
+                    <div class="user-profile-widget">
+                        <div class="user-avatar" id="header-user-avatar">A</div>
+                        <div class="user-details-desktop">
+                            <span class="user-name" id="header-user-name">Super Admin</span>
+                            <span class="user-role">Administrator</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Breadcrumbs bar -->
+            <div class="breadcrumb-container">
+                <span class="breadcrumb-item">Dashboard</span>
+                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <span class="breadcrumb-item">Students</span>
+                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <span class="breadcrumb-item active">Mark Attendance</span>
+            </div>
+
+            <!-- Content viewport wrapper -->
+            <div class="content-body">
+                
+                <!-- Attendance Summary Stats Cards -->
+                <div class="stats-grid" style="margin-bottom: 24px;">
+                    <div class="stat-card">
+                        <div class="stat-icon-wrapper" style="background-color: var(--accent-light); color: var(--accent-color);">
+                            <i class="fa-solid fa-users"></i>
+                        </div>
+                        <div class="stat-details">
+                            <span class="stat-label">Total Students</span>
+                            <h3 class="stat-number" id="att-stat-total">0</h3>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon-wrapper" style="background-color: rgba(34, 197, 94, 0.08); color: var(--success);">
+                            <i class="fa-solid fa-user-check"></i>
+                        </div>
+                        <div class="stat-details">
+                            <span class="stat-label">Present Today</span>
+                            <h3 class="stat-number" id="att-stat-present">0</h3>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon-wrapper" style="background-color: rgba(239, 68, 68, 0.08); color: var(--danger);">
+                            <i class="fa-solid fa-user-xmark"></i>
+                        </div>
+                        <div class="stat-details">
+                            <span class="stat-label">Absent Today</span>
+                            <h3 class="stat-number" id="att-stat-absent">0</h3>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon-wrapper" style="background-color: rgba(59, 130, 246, 0.08); color: var(--info);">
+                            <i class="fa-solid fa-chart-pie"></i>
+                        </div>
+                        <div class="stat-details">
+                            <span class="stat-label">Attendance Rate</span>
+                            <h3 class="stat-number" id="att-stat-rate">0%</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Control Toolbar & Filter Bar -->
+                <div class="attendance-toolbar">
+                    <div class="attendance-toolbar-left" style="flex-wrap: wrap; gap: 16px;">
+                        <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--text-primary);">
+                            <i class="fa-solid fa-calendar-days" style="color: var(--accent-color);"></i>
+                            <span>Session Date:</span>
+                            <input type="date" id="attendance-session-date" class="filter-dropdown" style="padding: 8px 12px; font-size: 13px; font-weight: 600;">
+                        </div>
+
+                        <div style="display: flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 600; color: var(--text-primary);">
+                            <i class="fa-solid fa-graduation-cap" style="color: var(--accent-color);"></i>
+                            <span>Department / Class:</span>
+                            <select id="attendance-dept-filter" class="filter-dropdown" style="padding: 8px 14px; font-size: 13px; font-weight: 600; border: 1.5px solid var(--accent-color);">
+                                <option value="" disabled selected>-- Select Department --</option>
+                                <option value="ECE">ECE Department</option>
+                                <option value="CSE">CSE Department</option>
+                                <option value="IT">IT Department</option>
+                                <option value="EEE">EEE Department</option>
+                                <option value="MECH">MECH Department</option>
+                                <option value="CIVIL">CIVIL Department</option>
+                            </select>
+                        </div>
+
+                        <div class="input-wrapper search-inline" style="min-width: 200px;">
+                            <input type="text" id="attendance-search-input" placeholder="Search student name or roll..." style="padding: 8px 12px 8px 36px; font-size: 13px;">
+                            <span class="search-inline-icon" style="left: 12px; font-size: 13px;"><i class="fa-solid fa-magnifying-glass"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="attendance-toolbar-right">
+                        <button type="button" class="btn btn-secondary" id="btn-mark-all-present" style="padding: 8px 14px; font-size: 12px; display: inline-flex; align-items: center; gap: 6px;">
+                            <i class="fa-solid fa-user-check" style="color: var(--success);"></i> Mark All Present
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="btn-mark-all-absent" style="padding: 8px 14px; font-size: 12px; display: inline-flex; align-items: center; gap: 6px;">
+                            <i class="fa-solid fa-user-xmark" style="color: var(--danger);"></i> Mark All Absent
+                        </button>
+                        <button type="button" class="btn btn-primary" id="save-attendance-btn" style="padding: 8px 18px; font-size: 13px; display: inline-flex; align-items: center; gap: 8px;">
+                            <i class="fa-solid fa-cloud-arrow-up"></i> Save Registry
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Attendance Data Table Card -->
+                <div class="table-card">
+                    <div class="table-container">
+                        <table class="modern-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 80px;">ID</th>
+                                    <th>Student Profile</th>
+                                    <th>Roll Number</th>
+                                    <th>Department</th>
+                                    <th style="text-align: center; width: 220px;">Presence Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="attendance-tbody">
+                                <!-- Dynamic student presence rows -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Attendance empty register view -->
+                    <div class="empty-state" id="attendance-empty-state">
+                        <i class="fa-solid fa-graduation-cap empty-icon" style="font-size: 48px; color: var(--accent-color); margin-bottom: 12px;"></i>
+                        <h3 id="attendance-empty-title">Select Date & Department</h3>
+                        <p id="attendance-empty-desc">Please choose a session date and department above to load class attendance register.</p>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Notifications container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Core Javascript Assets -->
+    <script src="../js/app.js?v=5.0"></script>
+    <script src="../js/attendance.js?v=5.0"></script>
+</body>
+
+</html>

@@ -1,0 +1,159 @@
+/* ==========================================================================
+   STUDENT MANAGEMENT SYSTEM - RESPONSIVE LAYOUTS & BREAKPOINTS (css/responsive.css)
+   ========================================================================== */
+
+/* 1. Large Desktop / Tablet Adjustments */
+@media (max-width: 1200px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+    
+    .dashboard-details {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-grid {
+        gap: 16px 20px;
+    }
+}
+
+/* 2. Medium Tablet Screen Breakpoint */
+@media (max-width: 1024px) {
+    .sidebar {
+        transform: translateX(-280px);
+    }
+    
+    .sidebar.active {
+        transform: translateX(0);
+    }
+    
+    .main-content {
+        margin-left: 0;
+        width: 100%;
+        padding: 24px;
+    }
+    
+    /* Toggle menu display in header */
+    .menu-toggle {
+        display: flex !important;
+    }
+    
+    .app-header {
+        gap: 16px;
+    }
+}
+
+/* 3. Small Mobile Screen Breakpoint */
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-group.full-width {
+        grid-column: span 1;
+    }
+    
+    .floating-group {
+        grid-column: span 1 !important;
+    }
+    
+    .welcome-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+        padding: 24px;
+    }
+    
+    .welcome-decor {
+        display: none;
+    }
+    
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .attendance-banner-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 16px;
+    }
+    
+    .attendance-banner-actions {
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+    
+    .attendance-banner-actions input,
+    .attendance-banner-actions button {
+        width: 100%;
+    }
+    
+    .table-header-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .search-filter-box {
+        flex-direction: column;
+        max-width: 100%;
+    }
+    
+    .filter-dropdown {
+        width: 100%;
+    }
+    
+    .user-profile-widget {
+        padding: 4px;
+    }
+    
+    .user-details-desktop {
+        display: none; /* Hide textual labels on narrow mobile */
+    }
+    
+    .edit-page-grid-layout {
+        gap: 16px;
+    }
+    
+    .edit-page-grid-layout > div {
+        grid-column: span 2 !important;
+    }
+    
+    .edit-page-grid-layout form > div {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .edit-page-grid-layout form > div > div {
+        grid-column: span 1 !important;
+    }
+}
+
+/* 4. Extra Small Screens */
+@media (max-width: 480px) {
+    .main-content {
+        padding: 16px;
+    }
+    
+    .app-header h1 {
+        font-size: 18px;
+    }
+    
+    .header-subtitle {
+        font-size: 11px;
+    }
+    
+    .btn-action {
+        padding: 4px 8px;
+        font-size: 11px;
+    }
+    
+    .toast {
+        min-width: calc(100vw - 32px);
+        left: 16px;
+        right: 16px;
+        bottom: 16px;
+    }
+}

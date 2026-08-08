@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management System - Register Student</title>
+    <!-- Google Font Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom CSS Modules -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/forms.css">
+    <link rel="stylesheet" href="../css/tables.css">
+</head>
+
+<body>
+
+    <!-- Network Loader overlay -->
+    <div class="network-status-pill hidden" id="network-status-pill">
+        <div class="network-spinner"></div>
+        <span id="network-status-text">Loading...</span>
+    </div>
+
+    <!-- Main Screen Container -->
+    <div class="app-container hidden" id="app-screen">
+        
+        <!-- Sidebar Navigation Drawer -->
+        <aside class="sidebar" id="app-sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                    <span>STUDENTMS</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item" id="nav-item-dash" data-view="dashboard">
+                        <i class="fa-solid fa-chart-pie"></i>
+                        <span>Dashboard</span>
+                    </li>
+                    <li class="nav-item active" id="nav-item-add" data-view="add-student">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span>Register Student</span>
+                    </li>
+                    <li class="nav-item" id="nav-item-list" data-view="view-students">
+                        <i class="fa-solid fa-address-book"></i>
+                        <span>Student Directory</span>
+                    </li>
+                    <li class="nav-item" id="nav-item-att" data-view="attendance">
+                        <i class="fa-solid fa-calendar-check"></i>
+                        <span>Mark Attendance</span>
+                    </li>
+                    <li class="nav-item" id="nav-item-anal" data-view="count-students">
+                        <i class="fa-solid fa-chart-line"></i>
+                        <span>Registry Analytics</span>
+                    </li>
+                    <li class="nav-item" id="nav-item-set" data-view="settings">
+                        <i class="fa-solid fa-gears"></i>
+                        <span>Visual Settings</span>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <li class="nav-item" id="nav-sign-out" style="list-style: none; padding: 12px 16px; margin: 0 16px; border-radius: var(--radius-sm); display: flex; align-items: center; gap: 12px; color: var(--danger); cursor: pointer; font-size: 14px; font-weight: 600; transition: all var(--transition-fast);">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Sign Out</span>
+                </li>
+            </div>
+        </aside>
+
+        <!-- Right Side Main Content Window -->
+        <main class="main-content">
+            
+            <!-- Top Action Header -->
+            <header class="app-header">
+                <div style="display: flex; align-items: center; gap: 14px;">
+                    <button class="menu-toggle" id="menu-toggle-btn">
+                        <i class="fa-solid fa-bars"></i>
+                    </button>
+                    <div>
+                        <h1 class="header-title" id="view-title">Register Student</h1>
+                        <p class="header-subtitle" id="view-path-subtitle">Add a new student profile to ERP registry</p>
+                    </div>
+                </div>
+                
+                <div style="display: flex; align-items: center; gap: 16px;">
+                    <button class="theme-toggle" id="header-theme-toggle" title="Toggle Light/Dark Theme">
+                        <i class="fa-solid fa-moon"></i>
+                    </button>
+                    
+                    <div class="user-profile-widget">
+                        <div class="user-avatar" id="header-user-avatar">A</div>
+                        <div class="user-details-desktop">
+                            <span class="user-name" id="header-user-name">Super Admin</span>
+                            <span class="user-role">Administrator</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Breadcrumbs bar -->
+            <div class="breadcrumb-container">
+                <span class="breadcrumb-item">Dashboard</span>
+                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <span class="breadcrumb-item">Students</span>
+                <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+                <span class="breadcrumb-item active">Register Student</span>
+            </div>
+
+            <!-- Content viewport wrapper -->
+            <div class="content-body">
+                
+                <!-- Registration Form block -->
+                <div class="form-container" style="max-width: 1200px; margin: 0 auto;">
+                    
+                    <form id="studentForm" novalidate style="display: flex; flex-direction: column; gap: 24px;">
+                        
+                        <!-- 1. PERSONAL & ACADEMIC INFORMATION -->
+                        <div style="background-color: var(--bg-primary); border-radius: var(--radius-md); border: 1px solid var(--border-color); padding: 24px;">
+                            <h3 style="font-size: 14px; font-weight: 700; color: var(--accent-color); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                <i class="fa-solid fa-user-gear" style="margin-right: 6px;"></i> 1. Personal & Academic Details
+                            </h3>
+
+                            <!-- Header & Profile Avatar Selector -->
+                            <div style="display: flex; gap: 20px; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 20px; margin-bottom: 20px; flex-wrap: wrap;">
+                                <div class="add-photo-preview" id="add-photo-preview">
+                                    <span class="preview-placeholder">No photo</span>
+                                </div>
+                                <div style="display: flex; flex-direction: column; gap: 8px;">
+                                    <label class="btn btn-secondary" style="display: inline-flex; width: fit-content; padding: 8px 16px; font-size: 13px; cursor: pointer;">
+                                        <i class="fa-solid fa-cloud-arrow-up"></i> Upload Student Photo (Optional)
+                                        <input type="file" id="photo" name="photo" accept="image/*" style="display: none;">
+                                    </label>
+                                    <span style="font-size: 11px; color: var(--text-secondary);">Image formats allowed: PNG, JPG, JPEG, GIF. Maximum limit: 5MB.</span>
+                                </div>
+                            </div>
+
+                            <!-- Form Grid details -->
+                            <div class="form-grid">
+                                
+                                <div class="floating-group">
+                                    <input type="text" id="name" placeholder="Full Name *" required>
+                                    <label for="name">Full Name <small style="color:var(--accent-color); font-weight:700;">(Required)</small></label>
+                                    <span class="error-msg" id="name-error"></span>
+                                </div>
+
+                                <div class="floating-group">
+                                    <input type="text" id="roll" placeholder="Roll / Reg Number *" required>
+                                    <label for="roll">Roll / Registration No <small style="color:var(--accent-color); font-weight:700;">(Required)</small></label>
+                                    <span class="error-msg" id="roll-error"></span>
+                                </div>
+
+                                <div class="floating-group">
+                                    <select id="department">
+                                        <option value="" selected>General / Unspecified</option>
+                                        <option value="ECE">ECE</option>
+                                        <option value="CSE">CSE</option>
+                                        <option value="IT">IT</option>
+                                        <option value="EEE">EEE</option>
+                                        <option value="MECH">MECH</option>
+                                        <option value="CIVIL">CIVIL</option>
+                                    </select>
+                                    <label for="department">Department</label>
+                                    <span class="error-msg" id="department-error"></span>
+                                </div>
+
+                                <div class="floating-group">
+                                    <input type="date" id="dob" placeholder="Date of Birth">
+                                    <label for="dob">Date of Birth</label>
+                                    <span class="error-msg" id="dob-error"></span>
+                                </div>
+
+                                <div class="floating-group">
+                                    <input type="number" id="age" placeholder="Age" min="15" max="100">
+                                    <label for="age">Age</label>
+                                    <span class="error-msg" id="age-error"></span>
+                                </div>
+
+                                <div class="floating-group">
+                                    <select id="gender">
+                                        <option value="" selected>Select Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                    <label for="gender">Gender</label>
+                                    <span class="error-msg" id="gender-error"></span>
+                                </div>
+
+                                <div class="floating-group">
+                                    <input type="email" id="email" placeholder="Email Address">
+                                    <label for="email">Email Address</label>
+                                    <span class="error-msg" id="email-error"></span>
+                                </div>
+
+                                <div class="floating-group">
+                                    <input type="tel" id="phone" placeholder="Phone Number">
+                                    <label for="phone">Phone Number</label>
+                                    <span class="error-msg" id="phone-error"></span>
+                                </div>
+
+                                <div class="floating-group" style="grid-column: span 2;">
+                                    <input type="password" id="password" placeholder="Account Password">
+                                    <label for="password">Account Password</label>
+                                    <span class="error-msg" id="password-error"></span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- 2. PARENT INFORMATION -->
+                        <div style="background-color: var(--bg-primary); border-radius: var(--radius-md); border: 1px solid var(--border-color); padding: 24px;">
+                            <h3 style="font-size: 14px; font-weight: 700; color: var(--accent-color); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                <i class="fa-solid fa-people-roof" style="margin-right: 6px;"></i> 2. Parent Information
+                            </h3>
+                            <div class="form-grid">
+                                <div class="floating-group">
+                                    <input type="text" id="father_name" placeholder="Father's Name">
+                                    <label for="father_name">Father's Name</label>
+                                </div>
+                                <div class="floating-group">
+                                    <input type="text" id="mother_name" placeholder="Mother's Name">
+                                    <label for="mother_name">Mother's Name</label>
+                                </div>
+                                <div class="floating-group" style="grid-column: span 2;">
+                                    <input type="tel" id="parent_contact" placeholder="Emergency Contact Number">
+                                    <label for="parent_contact">Emergency Contact Number</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 3. ADDRESS INFORMATION -->
+                        <div style="background-color: var(--bg-primary); border-radius: var(--radius-md); border: 1px solid var(--border-color); padding: 24px;">
+                            <h3 style="font-size: 14px; font-weight: 700; color: var(--accent-color); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                <i class="fa-solid fa-map-location-dot" style="margin-right: 6px;"></i> 3. Address Information
+                            </h3>
+                            <div class="floating-group">
+                                <textarea id="address" placeholder="Residential Address" rows="3" style="resize: vertical; padding-top: 16px;"></textarea>
+                                <label for="address">Residential Address</label>
+                                <span class="error-msg" id="address-error"></span>
+                            </div>
+                        </div>
+
+                        <!-- 4. DOCUMENTS / ID PROOFS -->
+                        <div style="background-color: var(--bg-primary); border-radius: var(--radius-md); border: 1px solid var(--border-color); padding: 24px;">
+                            <h3 style="font-size: 14px; font-weight: 700; color: var(--accent-color); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 0.5px;">
+                                <i class="fa-solid fa-file-shield" style="margin-right: 6px;"></i> 4. Documents / ID Proof Copies
+                            </h3>
+                            <div class="form-grid" style="margin-bottom: 20px;">
+                                <div class="floating-group">
+                                    <select id="id_type">
+                                        <option value="" disabled selected hidden></option>
+                                        <option value="Aadhar Card">Aadhar Card</option>
+                                        <option value="Passport">Passport</option>
+                                        <option value="Driving License">Driving License</option>
+                                        <option value="College ID Card">College ID Card</option>
+                                    </select>
+                                    <label for="id_type">ID Proof Type</label>
+                                </div>
+                                <div class="floating-group">
+                                    <input type="text" id="id_number" placeholder="Identification Number">
+                                    <label for="id_number">Identification Number</label>
+                                </div>
+                            </div>
+
+                            <div class="doc-upload-box" style="border: 2px dashed var(--border-color); border-radius: var(--radius-md); padding: 20px; text-align: center; cursor: pointer; transition: all var(--transition-fast); background-color: var(--bg-secondary);">
+                                <label style="cursor: pointer; display: block;">
+                                    <i class="fa-solid fa-file-pdf" style="font-size: 32px; color: var(--accent-color); margin-bottom: 8px;"></i>
+                                    <p style="font-size: 13px; font-weight: 600; color: var(--text-primary);" id="add-doc-upload-title">No Document Selected</p>
+                                    <p style="font-size: 11px; color: var(--text-secondary);" id="add-doc-upload-size">Aadhar / Passport scan copy. Format: PDF, PNG, JPG.</p>
+                                    <input type="file" id="id_doc" name="id_doc" accept=".pdf,.png,.jpg,.jpeg" style="display: none;">
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Single Action Buttons -->
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border-color); padding-top: 24px;">
+                            <button type="button" class="btn btn-secondary" id="reset-form-btn-1" style="padding: 12px 28px;">
+                                <i class="fa-solid fa-rotate-left"></i> Clear Form
+                            </button>
+                            <button type="submit" class="btn btn-primary" style="padding: 12px 32px; font-weight: 700; font-size: 14px;">
+                                <i class="fa-solid fa-user-plus"></i> Save Student Profile
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Toast Notifications container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Core Javascript Assets -->
+    <script src="../js/app.js?v=2.0"></script>
+    <script src="../js/students.js?v=2.0"></script>
+</body>
+
+</html>

@@ -1,0 +1,314 @@
+/* ==========================================================================
+   STUDENT MANAGEMENT SYSTEM - FORMS, LABELS, & SELECT INPUTS (css/forms.css)
+   ========================================================================== */
+
+/* 1. Global Form Layout */
+.form-container {
+    background-color: var(--bg-secondary);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    padding: 30px;
+    box-shadow: var(--shadow-sm);
+    width: 100%;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px 24px;
+    margin-bottom: 24px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.form-group.full-width {
+    grid-column: span 2;
+}
+
+/* 2. Floating Label Wrapper Group */
+.floating-group {
+    position: relative;
+    margin-bottom: 4px;
+}
+
+.floating-group input,
+.floating-group select,
+.floating-group textarea {
+    width: 100%;
+    height: 56px;
+    padding: 16px;
+    font-size: 14px;
+    font-weight: 500;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    outline: none;
+    transition: all var(--transition-fast);
+}
+
+/* Custom Textarea adjust */
+.floating-group textarea {
+    height: auto;
+    min-height: 100px;
+    padding-top: 20px;
+}
+
+/* Modern Select drop dropdown styling (full width, custom gold focus) */
+.floating-group select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    background-size: 16px;
+    padding-right: 40px;
+    cursor: pointer;
+}
+
+/* Input Focus Glow states (Gold Border) */
+.floating-group input:focus,
+.floating-group select:focus,
+.floating-group textarea:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+/* Placeholder hiders */
+.floating-group input::placeholder,
+.floating-group textarea::placeholder {
+    color: transparent;
+}
+
+/* Floating Label Positioning */
+.floating-group label {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: var(--text-secondary);
+    pointer-events: none;
+    transition: all var(--transition-fast);
+    background-color: var(--bg-secondary);
+    padding: 0 4px;
+    margin-bottom: 0;
+    z-index: 2;
+}
+
+/* Textarea label starts higher up */
+.floating-group textarea ~ label {
+    top: 24px;
+    transform: none;
+}
+
+/* Move label up on focus, value entry, select valid options, or has-value classes */
+.floating-group input:focus ~ label,
+.floating-group input:not(:placeholder-shown) ~ label,
+.floating-group select:focus ~ label,
+.floating-group select:valid ~ label,
+.floating-group textarea:focus ~ label,
+.floating-group textarea:not(:placeholder-shown) ~ label,
+.floating-group.has-value label {
+    top: 0;
+    transform: translateY(-50%);
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent-color);
+}
+
+/* Override active label colors in dark theme */
+[data-theme="dark"] .floating-group label {
+    background-color: var(--bg-secondary);
+}
+
+/* 3. Errors validations styling */
+.floating-group.has-error input,
+.floating-group.has-error select,
+.floating-group.has-error textarea {
+    border-color: var(--danger) !important;
+}
+
+.floating-group.has-error input:focus,
+.floating-group.has-error select:focus,
+.floating-group.has-error textarea:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+}
+
+.floating-group.has-error label {
+    color: var(--danger) !important;
+}
+
+.error-msg {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--danger);
+    margin-top: 5px;
+    min-height: 16px;
+    display: block;
+}
+
+/* 4. Password Toggle and Icon overlays */
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper input {
+    padding-right: 48px;
+}
+
+.toggle-password-btn {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: var(--text-light);
+    display: flex;
+    align-items: center;
+    z-index: 5;
+    transition: color var(--transition-fast);
+}
+
+.toggle-password-btn:hover {
+    color: var(--text-secondary);
+}
+
+/* 5. Photos Avatar Uploader Layout */
+.add-photo-preview,
+.edit-avatar-preview {
+    width: 90px;
+    height: 90px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-primary);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-sm);
+}
+
+.add-photo-preview img,
+.edit-avatar-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.preview-placeholder {
+    font-size: 11px;
+    color: var(--text-light);
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* 6. Document Identification Upload area */
+.doc-upload-box {
+    border: 2px dashed var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    text-align: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    background-color: var(--bg-primary);
+}
+
+.doc-upload-box:hover {
+    border-color: var(--accent-color);
+    background-color: var(--bg-secondary);
+}
+
+/* 7. Double Column forms grids splitters */
+.edit-page-grid-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* 8. Multi-Step Registration Wizard Stepper */
+.wizard-stepper {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.step-tab {
+    flex: 1;
+    min-width: 240px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    background-color: var(--bg-primary);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-color);
+    transition: all var(--transition-fast);
+    cursor: pointer;
+}
+
+.step-tab.active {
+    border-color: var(--accent-color);
+    background-color: var(--bg-secondary);
+    box-shadow: 0 0 0 2px var(--accent-glow);
+    opacity: 1 !important;
+}
+
+.step-tab.completed {
+    border-color: var(--success);
+    opacity: 0.9;
+}
+
+.step-badge {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background-color: var(--border-color);
+    color: var(--text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+    transition: all var(--transition-fast);
+    flex-shrink: 0;
+}
+
+.step-tab.active .step-badge {
+    background-color: var(--accent-color);
+    color: #ffffff;
+}
+
+.step-tab.completed .step-badge {
+    background-color: var(--success);
+    color: #ffffff;
+}
+
+.step-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+    display: block;
+}
+
+.step-desc {
+    font-size: 11px;
+    color: var(--text-secondary);
+    display: block;
+}
+
+.form-step {
+    animation: fadeIn var(--transition-normal);
+}
