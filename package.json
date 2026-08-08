@@ -1,0 +1,12 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "SHREEDHAR G - Personal Portfolio Website",
+  "main": "api/contact.js",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "resend": "^4.1.2"
+  }
+}
