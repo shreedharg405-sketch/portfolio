@@ -397,6 +397,16 @@ document.addEventListener('DOMContentLoaded', () => {
                     attendanceColor = 'var(--warning)';
                 }
 
+                const isStudentRole = window.currentUser && window.currentUser.role === 'student';
+                let actionsHTML = `<button class="btn-action btn-view" data-id="${student.id}" data-roll="${student.roll}" style="background-color: var(--accent-light); color: var(--accent-color);"><i class="fa-solid fa-eye"></i> View</button>`;
+
+                if (!isStudentRole) {
+                    actionsHTML += `
+                        <button class="btn-action btn-edit" data-id="${student.id}" data-roll="${student.roll}"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
+                        <button class="btn-action btn-delete" data-id="${student.id}" data-roll="${student.roll}"><i class="fa-solid fa-trash"></i> Delete</button>
+                    `;
+                }
+
                 tr.innerHTML = `
                     <td style="font-weight: 700; color: var(--accent-color);">#${student.id}</td>
                     <td>
@@ -417,9 +427,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <td><span class="status-badge badge-${(student.status || 'Active').toLowerCase()}">${student.status || 'Active'}</span></td>
                     <td>
                         <div class="action-cell">
-                            <button class="btn-action btn-view" data-id="${student.id}" data-roll="${student.roll}" style="background-color: var(--accent-light); color: var(--accent-color);"><i class="fa-solid fa-eye"></i> View</button>
-                            <button class="btn-action btn-edit" data-id="${student.id}" data-roll="${student.roll}"><i class="fa-solid fa-pen-to-square"></i> Edit</button>
-                            <button class="btn-action btn-delete" data-id="${student.id}" data-roll="${student.roll}"><i class="fa-solid fa-trash"></i> Delete</button>
+                            ${actionsHTML}
                         </div>
                     </td>
                 `;

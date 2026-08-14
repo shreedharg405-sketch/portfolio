@@ -374,3 +374,16 @@ body {
     from { transform: scale(0.92); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
 }
+
+/* --- Student Role Read-Only System Styling --- */
+body.role-student #welcome-add-student-btn,
+body.role-student #empty-state-add-btn,
+body.role-student .btn-edit,
+body.role-student .btn-delete {
+    display: none !important;
+}
+
+body.role-student .user-role {
+    color: var(--accent-color) !important;
+    font-weight: 700;
+}

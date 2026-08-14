@@ -168,12 +168,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 `;
 
                 const checkbox = tr.querySelector('.attendance-check');
-                checkbox.addEventListener('change', () => {
-                    const newStatus = checkbox.checked ? 'Present' : 'Absent';
-                    attendanceStateMap[student.roll] = newStatus;
-                    updateRowPill(student.roll, newStatus);
-                    updateStatsSummary();
-                });
+                if (window.currentUser && window.currentUser.role === 'student') {
+                    checkbox.disabled = true;
+                    checkbox.style.cursor = 'not-allowed';
+                } else {
+                    checkbox.addEventListener('change', () => {
+                        const newStatus = checkbox.checked ? 'Present' : 'Absent';
+                        attendanceStateMap[student.roll] = newStatus;
+                        updateRowPill(student.roll, newStatus);
+                        updateStatsSummary();
+                    });
+                }
 
                 attendanceTbody.appendChild(tr);
             });

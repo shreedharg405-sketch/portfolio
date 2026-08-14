@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Session Verification and Autoredirects ---
     function checkSession() {
-        showLoading("Verifying admin session...");
+        showLoading("Verifying portal session...");
         fetch('../php/check_session.php')
             .then(res => res.json())
             .then(data => {
@@ -131,19 +131,40 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (isAuthPage) {
                             window.location.href = 'dashboard.html';
                         } else {
+                            window.currentUser = data.user;
                             window.currentAdmin = data.user;
+                            
+                            const isStudent = data.user.role === 'student';
+                            if (isStudent) {
+                                document.body.classList.add('role-student');
+                                document.body.classList.remove('role-admin');
+                            } else {
+                                document.body.classList.add('role-admin');
+                                document.body.classList.remove('role-student');
+                            }
+
                             // Populate header widgets
                             const headerUserAvatar = document.getElementById('header-user-avatar');
                             const headerUserName = document.getElementById('header-user-name');
+                            const headerUserRole = document.getElementById('header-user-role') || document.querySelector('.user-role');
+                            
                             if (headerUserAvatar) {
                                 headerUserAvatar.textContent = data.user.name.charAt(0).toUpperCase();
                             }
                             if (headerUserName) {
                                 headerUserName.textContent = data.user.name;
                             }
+                            if (headerUserRole) {
+                                headerUserRole.textContent = isStudent ? 'Student' : 'Administrator';
+                            }
                             // Reveal main page container
                             const appScreen = document.getElementById('app-screen');
                             if (appScreen) appScreen.classList.remove('hidden');
+
+                            // Apply View-Only Mode locks if user is Student
+                            if (isStudent) {
+                                applyStudentViewOnlyLocks();
+                            }
 
                             // Trigger page specific data loads if available
                             if (typeof window.fetchAttendanceChecklist === 'function') {
@@ -152,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                             // Attach click listeners to user profile widget across page
                             document.querySelectorAll('.user-profile-widget').forEach(widget => {
-                                widget.setAttribute('title', 'Click to view Administrator Details');
+                                widget.setAttribute('title', isStudent ? 'Click to view Student Details' : 'Click to view Administrator Details');
                                 widget.addEventListener('click', (e) => {
                                     e.preventDefault();
                                     window.showAdminProfileModal();
@@ -173,13 +194,48 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
+    // Helper to lock form editing for Student role
+    function applyStudentViewOnlyLocks() {
+        // Add notice banner to management pages
+        const contentBody = document.querySelector('.content-body');
+        const formContainer = document.querySelector('form') || document.querySelector('.form-card');
+        
+        if (formContainer && (window.location.pathname.includes('add-student') || window.location.pathname.includes('edit-student') || window.location.pathname.includes('attendance'))) {
+            let existingNotice = document.getElementById('student-view-notice');
+            if (!existingNotice) {
+                const notice = document.createElement('div');
+                notice.id = 'student-view-notice';
+                notice.style.cssText = `
+                    background: rgba(245, 158, 11, 0.15); border: 1px solid #f59e0b; padding: 14px 18px;
+                    border-radius: var(--radius-md); color: #d97706; font-weight: 600; margin-bottom: 20px;
+                    display: flex; align-items: center; gap: 12px; font-size: 13px;
+                `;
+                notice.innerHTML = `<i class="fa-solid fa-lock" style="font-size: 18px;"></i> <span><strong>View-Only Mode:</strong> You are logged in as a Student. Registering, editing, or modifying records is restricted to Administrators.</span>`;
+                formContainer.parentNode.insertBefore(notice, formContainer);
+            }
+
+            // Disable all form submit buttons & input fields
+            document.querySelectorAll('form input, form select, form textarea, form button[type="submit"]').forEach(el => {
+                el.disabled = true;
+                el.style.cursor = 'not-allowed';
+            });
+        }
+    }
+
     // --- Admin Profile Modal Popup ---
     window.showAdminProfileModal = function() {
         let existingModal = document.getElementById('admin-profile-modal-overlay');
         if (existingModal) existingModal.remove();
 
-        const admin = window.currentAdmin || { name: 'Super Admin', email: 'admin@studentms.com', id: 1 };
-        const initial = (admin.name || 'A').charAt(0).toUpperCase();
+        const user = window.currentUser || window.currentAdmin || { name: 'User', email: 'user@studentms.com', id: 1, role: 'admin' };
+        const initial = (user.name || 'U').charAt(0).toUpperCase();
+        const isStudent = user.role === 'student';
+
+        const roleBadgeTitle = isStudent ? 'Student Account' : 'System Administrator';
+        const roleFullTitle = isStudent ? 'Student Portal' : 'Super Administrator';
+        const detailsHeader = isStudent ? 'Student Profile Details' : 'Administrator Profile Details';
+        const idLabel = isStudent ? 'Student ID' : 'Administrator ID';
+        const idCode = isStudent ? `#STD-${String(user.id || 1).padStart(3, '0')}` : `#ADM-${String(user.id || 1).padStart(3, '0')}`;
 
         const overlay = document.createElement('div');
         overlay.id = 'admin-profile-modal-overlay';
@@ -200,8 +256,8 @@ document.addEventListener('DOMContentLoaded', () => {
                             ${initial}
                         </div>
                         <div>
-                            <h2 style="font-size: 20px; font-weight: 700; margin: 0; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">${admin.name}</h2>
-                            <span style="font-size: 12px; background: rgba(255,255,255,0.25); padding: 3px 10px; border-radius: 20px; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; margin-top: 4px; display: inline-block;">System Administrator</span>
+                            <h2 style="font-size: 20px; font-weight: 700; margin: 0; text-shadow: 0 1px 2px rgba(0,0,0,0.2);">${user.name}</h2>
+                            <span style="font-size: 12px; background: rgba(255,255,255,0.25); padding: 3px 10px; border-radius: 20px; text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; margin-top: 4px; display: inline-block;">${roleBadgeTitle}</span>
                         </div>
                     </div>
                 </div>
@@ -209,21 +265,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 <!-- Modal Body Information -->
                 <div style="padding: 24px; display: flex; flex-direction: column; gap: 16px;">
                     <h3 style="font-size: 13px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">
-                        Administrator Profile Details
+                        ${detailsHeader}
                     </h3>
                     
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; background: var(--bg-primary); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border-color);">
                         <div>
-                            <span style="font-size: 11px; color: var(--text-secondary); display: block; margin-bottom: 2px;">Administrator ID</span>
-                            <strong style="font-size: 14px; color: var(--text-primary);">#ADM-${String(admin.id || 1).padStart(3, '0')}</strong>
+                            <span style="font-size: 11px; color: var(--text-secondary); display: block; margin-bottom: 2px;">${idLabel}</span>
+                            <strong style="font-size: 14px; color: var(--text-primary);">${idCode}</strong>
                         </div>
                         <div>
                             <span style="font-size: 11px; color: var(--text-secondary); display: block; margin-bottom: 2px;">Account Role</span>
-                            <strong style="font-size: 14px; color: var(--accent-color);">Super Administrator</strong>
+                            <strong style="font-size: 14px; color: var(--accent-color);">${roleFullTitle}</strong>
                         </div>
                         <div style="grid-column: span 2;">
                             <span style="font-size: 11px; color: var(--text-secondary); display: block; margin-bottom: 2px;">Registered Email Address</span>
-                            <strong style="font-size: 14px; color: var(--text-primary);">${admin.email}</strong>
+                            <strong style="font-size: 14px; color: var(--text-primary);">${user.email}</strong>
                         </div>
                     </div>
 
@@ -232,7 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
                             <i class="fa-solid fa-shield-halved" style="color: #10b981; font-size: 18px;"></i>
                             <div>
                                 <span style="font-size: 13px; font-weight: 600; display: block; color: var(--text-primary);">Session Status</span>
-                                <span style="font-size: 11px; color: var(--text-secondary);">Active Authenticated ERP Session</span>
+                                <span style="font-size: 11px; color: var(--text-secondary);">${isStudent ? 'Authenticated Student Session (View Only)' : 'Active Authenticated ERP Session'}</span>
                             </div>
                         </div>
                         <span style="font-size: 11px; background: rgba(16, 185, 129, 0.15); color: #10b981; font-weight: 700; padding: 4px 10px; border-radius: 20px;">ONLINE</span>

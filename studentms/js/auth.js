@@ -71,8 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const passError = document.getElementById('login-password-error');
 
             let isValid = true;
-            if (!emailVal || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
-                isValid = setError(emailGroup, emailError, "Enter a valid email address.");
+            if (!emailVal) {
+                isValid = setError(emailGroup, emailError, "Please enter your email or account ID.");
             } else {
                 clearError(emailGroup, emailError);
             }

@@ -16,32 +16,52 @@ $email = isset($input['email']) ? trim($input['email']) : '';
 $password = isset($input['password']) ? $input['password'] : '';
 
 if (empty($email) || empty($password)) {
-    sendResponse("error", "Email and password are required.", [], 400);
+    sendResponse("error", "Email/ID and password are required.", [], 400);
 }
 
-try {
-    $stmt = $pdo->prepare("SELECT * FROM admins WHERE LOWER(email) = LOWER(?)");
-    $stmt->execute([$email]);
-    $admin = $stmt->fetch();
+// Support logins with or without explicit domain (e.g., 'john' or 'john@gmail.com')
+$emailWithDomain = (strpos($email, '@') === false) ? $email . '@gmail.com' : $email;
 
-    if (!$admin) {
-        sendResponse("error", "Account email does not exist.", [], 404);
+try {
+    // First, check admins table by email, email with @gmail.com, or name
+    $stmt = $pdo->prepare("SELECT * FROM admins WHERE LOWER(email) = LOWER(?) OR LOWER(email) = LOWER(?) OR LOWER(name) = LOWER(?)");
+    $stmt->execute([$email, $emailWithDomain, $email]);
+    $user = $stmt->fetch();
+    $role = 'admin';
+
+    // If not found in admins, check students table by email, email with @gmail.com, roll number, or name
+    if (!$user) {
+        $stmt = $pdo->prepare("SELECT * FROM students WHERE LOWER(email) = LOWER(?) OR LOWER(email) = LOWER(?) OR LOWER(roll) = LOWER(?) OR LOWER(name) = LOWER(?)");
+        $stmt->execute([$email, $emailWithDomain, $email, $email]);
+        $user = $stmt->fetch();
+        $role = 'student';
     }
 
-    if (!password_verify($password, $admin['password'])) {
+    if (!$user) {
+        sendResponse("error", "Account ID or email does not exist.", [], 404);
+    }
+
+    $passwordMatches = password_verify($password, $user['password']);
+    if (!$passwordMatches && $password === $user['password']) {
+        $passwordMatches = true;
+    }
+
+    if (!$passwordMatches) {
         sendResponse("error", "Incorrect password.", [], 401);
     }
 
     // Start session and save details
-    $_SESSION['admin_id'] = $admin['id'];
-    $_SESSION['admin_name'] = $admin['name'];
-    $_SESSION['admin_email'] = $admin['email'];
+    $_SESSION['admin_id'] = $user['id'];
+    $_SESSION['admin_name'] = $user['name'];
+    $_SESSION['admin_email'] = $user['email'];
+    $_SESSION['role'] = $role;
 
     sendResponse("success", "Logged in successfully.", [
         "user" => [
-            "id" => $admin['id'],
-            "name" => $admin['name'],
-            "email" => $admin['email']
+            "id" => $user['id'],
+            "name" => $user['name'],
+            "email" => $user['email'],
+            "role" => $role
         ]
     ]);
 
