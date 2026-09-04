@@ -4,7 +4,8 @@
   "description": "SHREEDHAR G - Personal Portfolio Website",
   "main": "api/contact.js",
   "scripts": {
-    "dev": "vercel dev"
+    "start": "node dev-server.js",
+    "dev": "node dev-server.js"
   },
   "dependencies": {
     "resend": "^4.1.2"

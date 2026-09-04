@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 
 <head>
     <meta charset="UTF-8">
@@ -16,7 +16,7 @@
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/main.css?v=1788537500">
 </head>
 
 <body>
@@ -41,7 +41,6 @@
         <div class="blob blob-1"></div>
         <div class="blob blob-2"></div>
         <div class="blob blob-3"></div>
-        <canvas id="particleCanvas" class="particle-canvas"></canvas>
     </div>
 
     <!-- Navbar Component -->
@@ -61,7 +60,7 @@
             <!-- Pill Theme Switcher Template -->
             <button id="themeSwitchBtn" class="theme-switch" aria-label="Toggle theme" title="Toggle Light/Dark mode">
                 <span class="switch-slider">
-                    <i class="fas fa-moon" id="themeIcon"></i>
+                    <i class="fas fa-sun" id="themeIcon"></i>
                 </span>
             </button>
             <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
@@ -82,14 +81,18 @@
     </div>
     <!-- Hero Component -->
     <section id="home" class="home-section">
-        <div class="floating-icons" aria-hidden="true">
-            <div class="float-icon float-icon-1"><i class="fas fa-microchip" style="color: #00E5FF;"></i></div>
-            <div class="float-icon float-icon-2"><i class="fas fa-code" style="color: #8B5CF6;"></i></div>
-            <div class="float-icon float-icon-3"><i class="fab fa-html5" style="color: #e34f26;"></i></div>
-            <div class="float-icon float-icon-4"><i class="fab fa-css3-alt" style="color: #264de4;"></i></div>
-            <div class="float-icon float-icon-5"><i class="fab fa-js" style="color: #f7df1e;"></i></div>
-            <div class="float-icon float-icon-6"><i class="fab fa-github" style="color: var(--text-primary);"></i></div>
-            <div class="float-icon float-icon-7"><i class="fab fa-linkedin-in" style="color: #0077b5;"></i></div>
+        <div class="floating-icons">
+            <div class="float-icon float-icon-1" title="Embedded Systems" aria-label="Embedded Systems"><i class="fas fa-microchip" style="color: #00E5FF;"></i></div>
+            <div class="float-icon float-icon-2" title="Web Development" aria-label="Web Development"><i class="fas fa-code" style="color: #8B5CF6;"></i></div>
+            <div class="float-icon float-icon-3" title="HTML5" aria-label="HTML5"><i class="fab fa-html5" style="color: #e34f26;"></i></div>
+            <div class="float-icon float-icon-4" title="CSS3" aria-label="CSS3"><i class="fab fa-css3-alt" style="color: #264de4;"></i></div>
+            <div class="float-icon float-icon-5" title="JavaScript" aria-label="JavaScript"><i class="fab fa-js" style="color: #f7df1e;"></i></div>
+            <a href="https://github.com/shreedharg405-sketch" target="_blank" rel="noopener noreferrer" class="float-icon float-icon-6 float-icon-link" aria-label="GitHub Profile" title="Open GitHub Profile">
+                <i class="fab fa-github" style="color: var(--text-primary);"></i>
+            </a>
+            <a href="https://linkedin.com/in/shreedhar-g" target="_blank" rel="noopener noreferrer" class="float-icon float-icon-7 float-icon-link" aria-label="LinkedIn Profile" title="Open LinkedIn Profile">
+                <i class="fab fa-linkedin-in" style="color: #0077b5;"></i>
+            </a>
         </div>
 
         <div class="home-content">
@@ -100,19 +103,13 @@
                 <h1 class="home-name">SHREEDHAR G</h1>
                 <h2 class="home-role">Electronics and Communication Engineering Student</h2>
 
-                <div class="typing-wrapper">
-                    <span class="typing-prefix">I am a </span>
-                    <span class="typed-text" id="typedText"></span>
-                    <span class="typing-cursor">|</span>
-                </div>
-
                 <p class="home-description">"Passionate Electronics and Communication Engineering student focused on
                     Embedded Systems, VLSI Design, and Communication Systems. I enjoy building innovative hardware
                     solutions and continuously improving my technical skills through real-world projects."</p>
 
                 <div class="home-buttons">
-                    <a href="uploads/1dbb3d82d06f7f4f18a9ac14c1270981.pdf" class="btn btn-primary ripple-btn"
-                        download><i class="fas fa-download"></i><span>Download Resume</span></a>
+                    <a href="assets/resume.pdf" class="btn btn-primary ripple-btn"
+                        download="Shreedhar_G_Resume.pdf"><i class="fas fa-download"></i><span>Download Resume</span></a>
                     <a href="#contact" class="btn btn-outline ripple-btn"><i
                             class="fas fa-paper-plane"></i><span>Contact Me</span></a>
                     <a href="#projects" class="btn btn-secondary ripple-btn"><i
@@ -135,7 +132,7 @@
                     <div class="profile-ring ring-inner"></div>
                     <div class="profile-image-wrapper">
                         <div class="profile-image">
-                            <img src="uploads/projects/profile_head_centered.png" alt="SHREEDHAR G">
+                            <img src="images/profile_head_centered.png" alt="SHREEDHAR G">
                         </div>
                     </div>
                 </div>
@@ -152,7 +149,7 @@
                 <div class="about-profile-card glass-card reveal-left">
                     <div class="about-avatar">
                         <div class="about-avatar-inner">
-                            <img src="uploads/projects/profile_head_centered.png" alt="SHREEDHAR G">
+                            <img src="images/profile_head_centered.png" alt="SHREEDHAR G">
                         </div>
                     </div>
                     <h3>SHREEDHAR G</h3>
@@ -240,18 +237,18 @@
     </section>
     <!-- Experience Component -->
     <section id="experience" class="experience-section">
-        <h2 class="heading reveal-up">Work <span>Experience</span></h2>
-        <p class="section-subtitle reveal-up">Industrial training &amp; internships</p>
+        <h2 class="heading reveal-up"><span>Internship</span></h2>
+        <p class="section-subtitle reveal-up">Industrial training &amp; internship experience</p>
 
         <div class="experience-container reveal-up">
             <div class="glass-card" style="padding:2rem;margin-bottom:1.5rem;">
                 <h3 style="font-size:1.3rem;font-weight:700;color:var(--text-primary);">Adventure Technology Solutions
                     Pvt Ltd.</h3>
-                <h4 style="font-size:1rem;color:var(--accent-cyan);margin:0.2rem 0;">Embedded Systems Trainee</h4>
+                <h4 style="font-size:1rem;color:var(--accent-cyan);margin:0.2rem 0;">Embedded Systems Intern / Trainee</h4>
                 <span style="font-size:0.85rem;color:var(--text-muted);"><i class="far fa-calendar-alt"></i> 03 June
                     2025 – 03 July 2025</span>
                 <p style="font-size:0.95rem;color:var(--text-secondary);margin-top:0.8rem;line-height:1.7;">Completed
-                    Embedded Systems Training, Worked on Real-Time Applications, Hardware Programming, Basic Circuit
+                    Embedded Systems Internship, Worked on Real-Time Applications, Hardware Programming, Basic Circuit
                     Implementation, Embedded Programming.</p>
             </div>
         </div>
@@ -263,35 +260,35 @@
 
         <div class="skills-container">
             <div class="skill-card glass-card reveal-up">
-                <div class="skill-icon-wrap"><i class="fas fa-microchip" style="color:var(--accent-cyan);font-size:1.5rem;"></i></div>
-                <h3 class="skill-name">Embedded Systems</h3>
-                <div class="skill-percent" style="font-size:1.1rem;font-weight:700;color:var(--accent-cyan);">88%</div>
-                <div class="skill-bar-track">
-                    <div class="skill-bar-fill" data-width="88"></div>
-                </div>
-            </div>
-            <div class="skill-card glass-card reveal-up">
-                <div class="skill-icon-wrap"><i class="fas fa-bolt" style="color:var(--accent-cyan);font-size:1.5rem;"></i></div>
-                <h3 class="skill-name">Arduino</h3>
-                <div class="skill-percent" style="font-size:1.1rem;font-weight:700;color:var(--accent-cyan);">90%</div>
-                <div class="skill-bar-track">
-                    <div class="skill-bar-fill" data-width="90"></div>
-                </div>
-            </div>
-            <div class="skill-card glass-card reveal-up">
-                <div class="skill-icon-wrap"><i class="fas fa-terminal" style="color:var(--accent-cyan);font-size:1.4rem;"></i></div>
-                <h3 class="skill-name">Embedded C</h3>
+                <div class="skill-icon-wrap"><i class="fab fa-python" style="color:var(--accent-cyan);font-size:1.6rem;"></i></div>
+                <h3 class="skill-name">Python</h3>
                 <div class="skill-percent" style="font-size:1.1rem;font-weight:700;color:var(--accent-cyan);">85%</div>
                 <div class="skill-bar-track">
                     <div class="skill-bar-fill" data-width="85"></div>
                 </div>
             </div>
             <div class="skill-card glass-card reveal-up">
-                <div class="skill-icon-wrap"><i class="fas fa-memory" style="color:var(--accent-cyan);font-size:1.5rem;"></i></div>
-                <h3 class="skill-name">VLSI Design (Basics)</h3>
+                <div class="skill-icon-wrap"><i class="fas fa-code" style="color:var(--accent-cyan);font-size:1.5rem;"></i></div>
+                <h3 class="skill-name">C</h3>
+                <div class="skill-percent" style="font-size:1.1rem;font-weight:700;color:var(--accent-cyan);">85%</div>
+                <div class="skill-bar-track">
+                    <div class="skill-bar-fill" data-width="85"></div>
+                </div>
+            </div>
+            <div class="skill-card glass-card reveal-up">
+                <div class="skill-icon-wrap"><i class="fas fa-laptop-code" style="color:var(--accent-cyan);font-size:1.5rem;"></i></div>
+                <h3 class="skill-name">C++</h3>
                 <div class="skill-percent" style="font-size:1.1rem;font-weight:700;color:var(--accent-cyan);">78%</div>
                 <div class="skill-bar-track">
                     <div class="skill-bar-fill" data-width="78"></div>
+                </div>
+            </div>
+            <div class="skill-card glass-card reveal-up">
+                <div class="skill-icon-wrap"><i class="fab fa-react" style="color:var(--accent-cyan);font-size:1.6rem;"></i></div>
+                <h3 class="skill-name">React</h3>
+                <div class="skill-percent" style="font-size:1.1rem;font-weight:700;color:var(--accent-cyan);">88%</div>
+                <div class="skill-bar-track">
+                    <div class="skill-bar-fill" data-width="88"></div>
                 </div>
             </div>
             <div class="skill-card glass-card reveal-up">
@@ -299,7 +296,7 @@
                 <h3 class="skill-name">JavaScript</h3>
                 <div class="skill-percent" style="font-size:1.1rem;font-weight:700;color:var(--accent-cyan);">88%</div>
                 <div class="skill-bar-track">
-                    <div class="skill-bar-fill" data-width="70"></div>
+                    <div class="skill-bar-fill" data-width="88"></div>
                 </div>
             </div>
             <div class="skill-card glass-card reveal-up">
@@ -382,7 +379,49 @@
                 </div>
             </div>
 
-            <!-- Project 03: Embedded Smart Poultry Farm Control System -->
+            <!-- Project 03: Student Record Management Backend -->
+            <div class="project-card glass-card reveal-up">
+                <div class="project-thumbnail">
+                    <img src="images/projects/student-record-backend.jpg" alt="Student Record Management Backend"
+                        class="project-thumb-img">
+                </div>
+                <div class="project-info">
+                    <div class="project-tags">
+                        <span class="project-tag" style="background: var(--grad-primary); color: #fff; border: none; font-weight: 700;">03</span>
+                        <span class="project-tag">Backend</span>
+                        <span class="project-tag">REST API</span>
+                        <span class="project-tag">CRUD</span>
+                        <span class="project-tag">Data Validation</span>
+                        <span class="project-tag">Database</span>
+                    </div>
+                    <h3>03. Student Record Management Backend</h3>
+                    <p>A backend application for managing student records with API-based operations for creating, retrieving, updating, and deleting student information. The project demonstrates backend development, API handling, data validation, and structured request/response management.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Project 04: Weather Application -->
+            <div class="project-card glass-card reveal-up">
+                <div class="project-thumbnail">
+                    <img src="images/projects/weather-application.jpg" alt="Weather Application"
+                        class="project-thumb-img">
+                </div>
+                <div class="project-info">
+                    <div class="project-tags">
+                        <span class="project-tag" style="background: var(--grad-primary); color: #fff; border: none; font-weight: 700;">04</span>
+                        <span class="project-tag">JavaScript</span>
+                        <span class="project-tag">Weather API</span>
+                        <span class="project-tag">REST API</span>
+                        <span class="project-tag">HTML5 / CSS3</span>
+                        <span class="project-tag">Dynamic UI</span>
+                    </div>
+                    <h3>04. Weather Application</h3>
+                    <p>A weather application that provides users with weather information through a simple and user-friendly interface. It demonstrates API integration, dynamic data handling, and presenting real-time weather information in a clean interface.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Project 05: Embedded Smart Poultry Farm Control System -->
             <div class="project-card glass-card reveal-up">
                 <div class="project-thumbnail">
                     <img src="images/projects/smart-poultry-farm.jpg" alt="Embedded Smart Poultry Farm Control System"
@@ -390,14 +429,14 @@
                 </div>
                 <div class="project-info">
                     <div class="project-tags">
-                        <span class="project-tag" style="background: var(--grad-primary); color: #fff; border: none; font-weight: 700;">03</span>
+                        <span class="project-tag" style="background: var(--grad-primary); color: #fff; border: none; font-weight: 700;">05</span>
                         <span class="project-tag">Arduino Uno</span>
                         <span class="project-tag">DHT11</span>
                         <span class="project-tag">Relay Module</span>
                         <span class="project-tag">Embedded C</span>
                         <span class="project-tag">Embedded Systems</span>
                     </div>
-                    <h3>03. Embedded Smart Poultry Farm Control System</h3>
+                    <h3>05. Embedded Smart Poultry Farm Control System</h3>
                     <p>Developed an Arduino Uno based Smart Poultry Farm Control System capable of monitoring
                         temperature and humidity using a DHT11 sensor. Automated heater, intake fan, and exhaust fan
                         using relay modules to maintain optimal environmental conditions and reduce manual monitoring.
@@ -405,14 +444,14 @@
                 </div>
             </div>
 
-            <!-- Project 04: Smart Lume -->
+            <!-- Project 06: Smart Lume -->
             <div class="project-card glass-card reveal-up">
                 <div class="project-thumbnail">
                     <img src="images/projects/smart-lume.jpg" alt="Smart Lume" class="project-thumb-img">
                 </div>
                 <div class="project-info">
                     <div class="project-tags">
-                        <span class="project-tag" style="background: var(--grad-primary); color: #fff; border: none; font-weight: 700;">04</span>
+                        <span class="project-tag" style="background: var(--grad-primary); color: #fff; border: none; font-weight: 700;">06</span>
                         <span class="project-tag">ESP32 / Arduino</span>
                         <span class="project-tag">LDR</span>
                         <span class="project-tag">PIR</span>
@@ -421,7 +460,7 @@
                         <span class="project-tag">Battery</span>
                         <span class="project-tag">IoT</span>
                     </div>
-                    <h3>04. Smart Lume</h3>
+                    <h3>06. Smart Lume</h3>
                     <p>Smart Lume is an IoT-based smart street light system that uses LDR and PIR sensors to
                         automatically control LED lighting based on ambient light and motion. The system uses solar
                         power and battery storage to improve energy efficiency and reduce unnecessary power consumption.
@@ -436,6 +475,13 @@
         <p class="section-subtitle reveal-up">Credentials stored in MySQL</p>
 
         <div class="certificates-container">
+            <div class="cert-card glass-card reveal-up">
+                <div class="cert-icon-wrap"><i class="fas fa-certificate"></i></div>
+                <div class="cert-content">
+                    <h3>Diploma Certificate in Full Stack Development</h3>
+                    <p class="cert-sub">I Shine Info Tech (Sep 2025 – Mar 2026)</p>
+                </div>
+            </div>
             <div class="cert-card glass-card reveal-up">
                 <div class="cert-icon-wrap"><i class="fas fa-certificate"></i></div>
                 <div class="cert-content">
@@ -509,22 +555,26 @@
                     <div class="form-group">
                         <div class="form-row">
                             <div class="col">
+                                <label class="form-label" for="nameInput">Full Name</label>
                                 <div class="form-field"><i class="fas fa-user field-icon"></i><input type="text"
-                                        name="name" class="form-control" placeholder="Full Name" required></div>
+                                        id="nameInput" name="name" class="form-control" placeholder="Your Name" required></div>
                             </div>
                             <div class="col">
+                                <label class="form-label" for="emailInput">Email Address</label>
                                 <div class="form-field"><i class="fas fa-envelope field-icon"></i><input type="email"
-                                        name="email" class="form-control" placeholder="Email Address" required></div>
+                                        id="emailInput" name="email" class="form-control" placeholder="your.email@example.com" required></div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="form-field"><i class="fas fa-tag field-icon"></i><input type="text" name="subject"
-                                class="form-control" placeholder="Subject" required></div>
+                        <label class="form-label" for="subjectInput">Subject</label>
+                        <div class="form-field"><i class="fas fa-tag field-icon"></i><input type="text" id="subjectInput" name="subject"
+                                class="form-control" placeholder="Subject of your message" required></div>
                     </div>
                     <div class="form-group">
-                        <div class="form-field form-field-textarea"><i class="fas fa-message field-icon"></i><textarea
-                                name="message" class="form-control" placeholder="Your Message" rows="5"
+                        <label class="form-label" for="messageInput">Your Message</label>
+                        <div class="form-field form-field-textarea"><i class="fas fa-comment-dots field-icon"></i><textarea
+                                id="messageInput" name="message" class="form-control" placeholder="Write your message here..." rows="5"
                                 required></textarea></div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block ripple-btn" id="submitBtn"><i
@@ -537,8 +587,8 @@
     <footer class="footer">
         <div class="footer-inner">
             <div class="footer-logo">SHREEDHAR G<span>.</span></div>
-            <p class="footer-tagline">"Designed &amp; Developed with ❤️ using HTML, CSS &amp; JavaScript"</p>
-            <div class="footer-divider"></div>
+            <!-- <p class="footer-tagline">"Designed &amp; Developed with ❤️ using HTML, CSS &amp; JavaScript"</p> -->
+            <!-- <div class="footer-divider"></div> -->
             <p class="footer-copy">&copy;2026 SHREEDHAR G. All Rights Reserved.</p>
         </div>
     </footer>
@@ -546,8 +596,6 @@
     <button class="back-to-top" id="backToTop"><i class="fas fa-chevron-up"></i></button>
 
     <script src="js/cursor.js?v=1785835000"></script>
-    <script src="js/particles.js?v=1785840000"></script>
-    <script src="js/typing.js?v=1785835000"></script>
     <script src="js/navbar.js?v=1785835000"></script>
     <script src="js/animation.js?v=1785835000"></script>
     <script src="js/contact.js?v=1785835000"></script>

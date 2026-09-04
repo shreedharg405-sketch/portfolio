@@ -25,6 +25,21 @@
 
     --spotlight-color: rgba(0, 229, 255, 0.08);
 
+    --form-bg:                 rgba(17, 24, 39, 0.85);
+    --form-border:             rgba(255, 255, 255, 0.12);
+    --form-card-shadow:        0 12px 36px rgba(0, 0, 0, 0.5);
+    --form-input-bg:           rgba(11, 17, 32, 0.75);
+    --form-input-border:       rgba(255, 255, 255, 0.16);
+    --form-input-text:         #F8FAFC;
+    --form-input-placeholder:  #64748B;
+    --form-input-hover-bg:     rgba(15, 23, 42, 0.9);
+    --form-input-hover-border: rgba(255, 255, 255, 0.28);
+    --form-input-focus-bg:     rgba(11, 17, 32, 0.95);
+    --form-input-focus-border: #00E5FF;
+    --form-icon-color:         #94A3B8;
+    --form-focus-ring:         0 0 0 4px rgba(0, 229, 255, 0.18);
+    --form-label-color:        #E2E8F0;
+
     --radius-sm:       12px;
     --radius-md:       20px;
     --radius-lg:       28px;

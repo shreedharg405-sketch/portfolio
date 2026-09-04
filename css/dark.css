@@ -6,4 +6,19 @@
     --text-secondary:  #9CA3AF;
     --accent-cyan:     #00E5FF;
     --accent-purple:   #8B5CF6;
+
+    --form-bg:                 rgba(17, 24, 39, 0.90);
+    --form-border:             rgba(255, 255, 255, 0.16);
+    --form-card-shadow:        0 14px 40px rgba(0, 0, 0, 0.55);
+    --form-input-bg:           rgba(11, 17, 32, 0.85);
+    --form-input-border:       rgba(255, 255, 255, 0.22);
+    --form-input-text:         #F8FAFC;
+    --form-input-placeholder:  #94A3B8;
+    --form-input-hover-bg:     rgba(15, 23, 42, 0.95);
+    --form-input-hover-border: rgba(255, 255, 255, 0.38);
+    --form-input-focus-bg:     rgba(11, 17, 32, 0.98);
+    --form-input-focus-border: #00E5FF;
+    --form-icon-color:         #94A3B8;
+    --form-focus-ring:         0 0 0 4px rgba(0, 229, 255, 0.22), 0 0 20px rgba(0, 229, 255, 0.25);
+    --form-label-color:        #F8FAFC;
 }

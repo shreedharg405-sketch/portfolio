@@ -1,6 +1,10 @@
 // Theme Switcher Module
 (function initTheme() {
-    const savedTheme = localStorage.getItem('portfolio_theme') || 'dark';
+    // Ensure initial/default behavior opens in Light Mode even if stale dark theme was stored in localStorage
+    if (!sessionStorage.getItem('theme_toggled_session')) {
+        localStorage.setItem('portfolio_theme', 'light');
+    }
+    const savedTheme = localStorage.getItem('portfolio_theme') || 'light';
     document.documentElement.setAttribute('data-theme', savedTheme);
 })();
 
@@ -14,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+    const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
     updateIcon(currentTheme);
 
     if (themeSwitchBtn) {
@@ -22,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const activeTheme = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
             document.documentElement.setAttribute('data-theme', activeTheme);
             localStorage.setItem('portfolio_theme', activeTheme);
+            sessionStorage.setItem('theme_toggled_session', 'true');
             updateIcon(activeTheme);
         });
     }

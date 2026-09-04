@@ -1,5 +1,47 @@
+# Environment Variables & Secrets
 .env
+.env*
+*.env
 .env.local
 .env*.local
+
+# Dependencies & Build Artifacts
 node_modules/
 .vercel
+
+# Database Scripts & Sensitive Dumps
+*.sql
+database.sql
+docs/database.sql
+studentms/database/
+
+# Private Documents, College Reports, PDFs, Office Files
+projects/
+*.docx
+*.doc
+*.pptx
+*.ppt
+*.xlsx
+*.xls
+
+# Private Photos and Uploads
+photos/
+uploads/
+
+# OS and IDE Files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.agents/
+.gemini/
+scratch/
+*.log
+npm-debug.log*
+yarn-debug.log*
+
+# College Projects & Non-Portfolio Source
+studentms/
+docs/
+*.php
+
