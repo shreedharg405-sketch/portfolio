@@ -12,7 +12,7 @@ console.log('----------------------------------------------------');
 const ROOT_DIR = __dirname;
 const DIST_DIR = path.join(ROOT_DIR, 'dist');
 
-// 1. Mandatory Files & Assets Verification
+// 1. Mandatory Project Images Verification
 const REQUIRED_PROJECT_IMAGES = [
     'student-management-system.jpg',
     'awardslogo.png',
@@ -23,19 +23,37 @@ const REQUIRED_PROJECT_IMAGES = [
 ];
 
 console.log('🔍 Checking showcase project images...');
+let validatedCount = 0;
+
 for (const img of REQUIRED_PROJECT_IMAGES) {
-    const imgPath = path.join(ROOT_DIR, 'images', 'projects', img);
-    if (!fs.existsSync(imgPath)) {
+    // Check in both images/projects/ and public/images/projects/
+    const stdPath = path.join(ROOT_DIR, 'images', 'projects', img);
+    const pubPath = path.join(ROOT_DIR, 'public', 'images', 'projects', img);
+
+    let resolvedPath = null;
+    if (fs.existsSync(stdPath)) {
+        resolvedPath = stdPath;
+    } else if (fs.existsSync(pubPath)) {
+        resolvedPath = pubPath;
+    }
+
+    if (!resolvedPath) {
         throw new Error(`[Build Error] Missing required project image: images/projects/${img}`);
     }
+
+    const stat = fs.statSync(resolvedPath);
+    const sizeKB = Math.round(stat.size / 1024);
+    validatedCount++;
+    console.log(`✓ [${validatedCount}/${REQUIRED_PROJECT_IMAGES.length}] ${img} (${sizeKB} KB) -> ${path.relative(ROOT_DIR, resolvedPath)}`);
 }
+
 console.log(`✓ All ${REQUIRED_PROJECT_IMAGES.length} showcase project images verified.`);
 
+// 2. Core Portfolio Files & Cloudflare Function Verification
 const REQUIRED_PORTFOLIO_FILES = [
     'index.html',
     '404.html',
     '_headers',
-    path.join('images', 'profile_head_centered.png'),
     path.join('assets', 'resume.pdf'),
     path.join('functions', 'api', 'contact.js')
 ];
@@ -48,7 +66,7 @@ for (const rel of REQUIRED_PORTFOLIO_FILES) {
 }
 console.log('✓ Core portfolio files, headers, and Cloudflare Function verified.');
 
-// 2. Prepare dist/ Directory
+// 3. Prepare dist/ Directory
 if (fs.existsSync(DIST_DIR)) {
     fs.rmSync(DIST_DIR, { recursive: true, force: true });
 }
@@ -56,6 +74,7 @@ fs.mkdirSync(DIST_DIR, { recursive: true });
 
 // Helper to copy recursive
 function copyRecursiveSync(src, dest) {
+    if (!fs.existsSync(src)) return;
     const stat = fs.statSync(src);
     if (stat.isDirectory()) {
         if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
@@ -67,7 +86,7 @@ function copyRecursiveSync(src, dest) {
     }
 }
 
-// 3. Copy Static Assets to dist/
+// 4. Compile Production Assets into dist/
 console.log('📦 Compiling production assets into dist/...');
 
 // Copy root static files
@@ -80,8 +99,11 @@ copyRecursiveSync(path.join(ROOT_DIR, 'css'), path.join(DIST_DIR, 'css'));
 copyRecursiveSync(path.join(ROOT_DIR, 'js'), path.join(DIST_DIR, 'js'));
 copyRecursiveSync(path.join(ROOT_DIR, 'images'), path.join(DIST_DIR, 'images'));
 copyRecursiveSync(path.join(ROOT_DIR, 'assets'), path.join(DIST_DIR, 'assets'));
+if (fs.existsSync(path.join(ROOT_DIR, 'public'))) {
+    copyRecursiveSync(path.join(ROOT_DIR, 'public'), path.join(DIST_DIR, 'public'));
+}
 
-// 4. Security & Isolation Audit on dist/
+// 5. Security & Isolation Audit on dist/
 console.log('🔒 Performing Security & Isolation Audit on dist/...');
 
 function auditDir(dir) {

@@ -22,6 +22,8 @@ studentms/database/
 /projects/
 !images/projects/
 !images/projects/*
+!public/images/projects/
+!public/images/projects/*
 *.docx
 *.doc
 *.pptx
