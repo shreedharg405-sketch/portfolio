@@ -19,7 +19,9 @@ docs/database.sql
 studentms/database/
 
 # Private Documents, College Reports, PDFs, Office Files
-projects/
+/projects/
+!images/projects/
+!images/projects/*
 *.docx
 *.doc
 *.pptx
