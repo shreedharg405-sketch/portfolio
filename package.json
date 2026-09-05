@@ -2,10 +2,11 @@
   "name": "portfolio",
   "version": "1.0.0",
   "description": "SHREEDHAR G - Personal Portfolio Website",
-  "main": "api/contact.js",
+  "main": "functions/api/contact.js",
   "scripts": {
-    "start": "node dev-server.js",
-    "dev": "node dev-server.js"
+    "build": "node build.js",
+    "start": "npx --yes serve dist -l 3000",
+    "preview": "npx --yes serve dist -l 3000"
   },
   "dependencies": {
     "resend": "^4.1.2"

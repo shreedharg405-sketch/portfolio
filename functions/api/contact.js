@@ -1,6 +1,6 @@
-const { Resend } = require('resend');
+// Cloudflare Pages Function: POST /api/contact
+// Native Fetch API & Cloudflare Workers runtime compatible
 
-// Helper to escape HTML special characters to prevent XSS in HTML emails
 function escapeHtml(text) {
     if (!text) return '';
     return String(text)
@@ -11,67 +11,68 @@ function escapeHtml(text) {
         .replace(/'/g, '&#039;');
 }
 
-// Basic email validation regex
 function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return typeof email === 'string' && emailRegex.test(email.trim());
 }
 
-module.exports = async (req, res) => {
-    // 1. Allow POST requests only
-    if (req.method !== 'POST') {
-        res.setHeader('Allow', ['POST']);
-        return res.status(405).json({
-            success: false,
-            message: 'Method Not Allowed. Contact form accepts POST requests only.'
-        });
-    }
+export async function onRequestPost(context) {
+    const { request, env } = context;
+
+    const headers = {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+    };
 
     try {
-        // 2. Extract fields from request body
-        const { name, email, subject, message } = req.body || {};
+        let body;
+        try {
+            body = await request.json();
+        } catch {
+            return new Response(JSON.stringify({
+                success: false,
+                message: 'Invalid JSON payload.'
+            }), { status: 400, headers });
+        }
 
-        // 3. Reject empty/missing submissions
+        const { name, email, subject, message } = body || {};
+
         const trimmedName = typeof name === 'string' ? name.trim() : '';
         const trimmedEmail = typeof email === 'string' ? email.trim() : '';
         const trimmedSubject = typeof subject === 'string' ? subject.trim() : '';
         const trimmedMessage = typeof message === 'string' ? message.trim() : '';
 
         if (!trimmedName || !trimmedEmail || !trimmedSubject || !trimmedMessage) {
-            return res.status(400).json({
+            return new Response(JSON.stringify({
                 success: false,
                 message: 'All fields (Name, Email, Subject, Message) are required.'
-            });
+            }), { status: 400, headers });
         }
 
-        // 4. Validate email format
         if (!isValidEmail(trimmedEmail)) {
-            return res.status(400).json({
+            return new Response(JSON.stringify({
                 success: false,
                 message: 'Please provide a valid email address.'
-            });
+            }), { status: 400, headers });
         }
 
-        // 5. Input length constraints
         if (trimmedName.length > 100 || trimmedEmail.length > 150 || trimmedSubject.length > 200 || trimmedMessage.length > 5000) {
-            return res.status(400).json({
+            return new Response(JSON.stringify({
                 success: false,
                 message: 'Input exceeds maximum allowed length.'
-            });
+            }), { status: 400, headers });
         }
 
-        // 6. Check Resend API Key presence
-        const apiKey = process.env.RESEND_API_KEY;
+        const apiKey = env ? env.RESEND_API_KEY : undefined;
         if (!apiKey) {
-            console.error('RESEND_API_KEY environment variable is not defined.');
-            return res.status(500).json({
+            console.error('RESEND_API_KEY environment variable is not defined in Cloudflare.');
+            return new Response(JSON.stringify({
                 success: false,
                 message: 'Unable to send your message. Server configuration error.'
-            });
+            }), { status: 500, headers });
         }
 
-        const resend = new Resend(apiKey);
-        const fromAddress = process.env.RESEND_FROM_EMAIL || 'Portfolio Contact <onboarding@resend.dev>';
+        const fromAddress = (env && env.RESEND_FROM_EMAIL) || 'Portfolio Contact <onboarding@resend.dev>';
         const toAddress = 'shreedharg405@gmail.com';
         const formattedSubject = `[Portfolio Contact] ${trimmedSubject}`;
         const submissionDate = new Date().toLocaleString('en-US', {
@@ -80,7 +81,6 @@ module.exports = async (req, res) => {
             timeStyle: 'medium'
         });
 
-        // Safely escaped HTML content
         const htmlContent = `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px; background-color: #ffffff;">
                 <h2 style="color: #d4af37; border-bottom: 2px solid #d4af37; padding-bottom: 8px; margin-top: 0;">New Message From Portfolio</h2>
@@ -107,41 +107,60 @@ module.exports = async (req, res) => {
                     <p style="white-space: pre-wrap; color: #444444; line-height: 1.6; margin-bottom: 0;">${escapeHtml(trimmedMessage)}</p>
                 </div>
                 <div style="margin-top: 25px; padding-top: 15px; border-top: 1px solid #eeeeee; font-size: 12px; color: #888888; text-align: center;">
-                    Sent via Portfolio Contact Form (Vercel + Resend)
+                    Sent via Portfolio Contact Form (Cloudflare Pages + Resend)
                 </div>
             </div>
         `;
 
         const textContent = `New message from your portfolio\n\nName: ${trimmedName}\nEmail: ${trimmedEmail}\nSubject: ${trimmedSubject}\nDate: ${submissionDate} (IST)\n\nMessage:\n${trimmedMessage}`;
 
-        // 7. Dispatch Email via Resend SDK
-        const response = await resend.emails.send({
-            from: fromAddress,
-            to: [toAddress],
-            replyTo: trimmedEmail,
-            subject: formattedSubject,
-            html: htmlContent,
-            text: textContent
+        const resendRes = await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${apiKey}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                from: fromAddress,
+                to: [toAddress],
+                reply_to: trimmedEmail,
+                subject: formattedSubject,
+                html: htmlContent,
+                text: textContent
+            })
         });
 
-        if (response.error) {
-            console.error('Resend API returned error:', response.error);
-            return res.status(500).json({
+        const resendData = await resendRes.json().catch(() => ({}));
+
+        if (!resendRes.ok || (resendData && resendData.error)) {
+            console.error('Resend API returned error:', resendData);
+            return new Response(JSON.stringify({
                 success: false,
                 message: 'Unable to send your message. Please try again.'
-            });
+            }), { status: 500, headers });
         }
 
-        return res.status(200).json({
+        return new Response(JSON.stringify({
             success: true,
             message: 'Thank you! Your message has been sent successfully.'
-        });
+        }), { status: 200, headers });
 
     } catch (err) {
-        console.error('Unhandled error in /api/contact handler:', err);
-        return res.status(500).json({
+        console.error('Unhandled error in Cloudflare Pages Function /api/contact:', err);
+        return new Response(JSON.stringify({
             success: false,
             message: 'Unable to send your message. Please try again.'
-        });
+        }), { status: 500, headers });
     }
-};
+}
+
+export async function onRequestOptions() {
+    return new Response(null, {
+        status: 204,
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'POST, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type, Accept',
+        }
+    });
+}

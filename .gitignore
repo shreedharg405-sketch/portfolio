@@ -7,7 +7,10 @@
 
 # Dependencies & Build Artifacts
 node_modules/
+dist/
 .vercel
+.cloudflare/
+.wrangler/
 
 # Database Scripts & Sensitive Dumps
 *.sql
