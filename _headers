@@ -7,8 +7,17 @@
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
 
+/assets/resume.pdf
+  Cache-Control: public, max-age=86400
+  Content-Type: application/pdf
+  Content-Disposition: inline; filename="Shreedhar_G_Resume.pdf"
+  X-Content-Type-Options: nosniff
+
 /assets/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=86400
+  Content-Type: application/pdf
+  Content-Disposition: inline; filename="Shreedhar_G_Resume.pdf"
+  X-Content-Type-Options: nosniff
 
 /images/*
   Cache-Control: public, max-age=31536000, immutable
