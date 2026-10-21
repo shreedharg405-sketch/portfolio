@@ -53,6 +53,7 @@ console.log(`✓ All ${REQUIRED_PROJECT_IMAGES.length} showcase project images v
 const REQUIRED_PORTFOLIO_FILES = [
     'index.html',
     '404.html',
+    'favicon.ico',
     '_headers',
     path.join('assets', 'resume.pdf'),
     path.join('functions', 'api', 'contact.js')
@@ -93,6 +94,10 @@ console.log('📦 Compiling production assets into dist/...');
 fs.copyFileSync(path.join(ROOT_DIR, 'index.html'), path.join(DIST_DIR, 'index.html'));
 fs.copyFileSync(path.join(ROOT_DIR, '404.html'), path.join(DIST_DIR, '404.html'));
 fs.copyFileSync(path.join(ROOT_DIR, '_headers'), path.join(DIST_DIR, '_headers'));
+fs.copyFileSync(path.join(ROOT_DIR, 'favicon.ico'), path.join(DIST_DIR, 'favicon.ico'));
+if (fs.existsSync(path.join(ROOT_DIR, 'favicon.svg'))) {
+    fs.copyFileSync(path.join(ROOT_DIR, 'favicon.svg'), path.join(DIST_DIR, 'favicon.svg'));
+}
 
 // Copy asset directories
 copyRecursiveSync(path.join(ROOT_DIR, 'css'), path.join(DIST_DIR, 'css'));

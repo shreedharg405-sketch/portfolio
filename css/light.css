@@ -1,42 +1,55 @@
 [data-theme="light"] {
-    --bg-primary:      #F8FAFC;
-    --bg-secondary:    #F1F5F9;
-    --bg-card:         rgba(255, 255, 255, 0.85);
-    --bg-header:       rgba(248, 250, 252, 0.88);
+    --bg-primary:      #EAF6E3;
+    --bg-secondary:    #DEF0D3;
+    --bg-card:         rgba(255, 255, 255, 0.82);
+    --bg-header:       rgba(234, 246, 227, 0.88);
 
-    --text-primary:    #0F172A;
-    --text-secondary:  #475569;
-    --text-muted:      #64748B;
+    --text-primary:    #064734;
+    --text-secondary:  #165643;
+    --text-muted:      #397361;
 
-    --accent-cyan:     #0284C7;
-    --accent-purple:   #6D28D9;
-    --accent-blue:     #0284C7;
+    --accent-cyan:     #064734;
+    --accent-purple:   #0E6E50;
+    --accent-blue:     #138562;
 
-    --grad-primary:    linear-gradient(135deg, #0284C7 0%, #6D28D9 100%);
-    --grad-text:       linear-gradient(135deg, #0284C7 0%, #6D28D9 100%);
+    --grad-primary:    linear-gradient(135deg, #064734 0%, #0E6E50 100%);
+    --grad-text:       linear-gradient(135deg, #064734 0%, #157E5D 100%);
 
-    --glow-cyan:       0 4px 20px rgba(2, 132, 199, 0.25);
-    --glow-purple:     0 4px 20px rgba(109, 40, 217, 0.25);
-    --glow-btn:        0 4px 24px rgba(2, 132, 199, 0.30);
+    --btn-primary-bg:     #064734;
+    --btn-primary-text:   #E0FFC2;
+    --btn-secondary-bg:   rgba(6, 71, 52, 0.08);
+    --btn-secondary-border: rgba(6, 71, 52, 0.22);
 
-    --glass-bg:        rgba(255, 255, 255, 0.75);
-    --glass-border:    rgba(15, 23, 42, 0.08);
-    --glass-shadow:    0 8px 30px rgba(15, 23, 42, 0.08);
+    --badge-bg:        rgba(6, 71, 52, 0.08);
+    --badge-border:    rgba(6, 71, 52, 0.22);
 
-    --spotlight-color: rgba(2, 132, 199, 0.05);
+    --ring-color-1:    rgba(6, 71, 52, 0.20);
+    --ring-color-2:    rgba(14, 110, 80, 0.18);
+    --ring-color-3:    rgba(19, 133, 98, 0.16);
+    --blob-3-color:    #C6EEAF;
+
+    --glow-cyan:       0 4px 20px rgba(6, 71, 52, 0.22);
+    --glow-purple:     0 4px 20px rgba(14, 110, 80, 0.20);
+    --glow-btn:        0 4px 24px rgba(6, 71, 52, 0.28);
+
+    --glass-bg:        rgba(255, 255, 255, 0.72);
+    --glass-border:    rgba(6, 71, 52, 0.12);
+    --glass-shadow:    0 8px 30px rgba(6, 71, 52, 0.08);
+
+    --spotlight-color: rgba(6, 71, 52, 0.05);
 
     --form-bg:                 #FFFFFF;
-    --form-border:             #CBD5E1;
-    --form-card-shadow:        0 12px 32px -4px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
-    --form-input-bg:           #F8FAFC;
-    --form-input-border:       #94A3B8;
-    --form-input-text:         #0F172A;
-    --form-input-placeholder:  #64748B;
+    --form-border:             #B9DCB8;
+    --form-card-shadow:        0 12px 32px -4px rgba(6, 71, 52, 0.08), 0 4px 12px -2px rgba(6, 71, 52, 0.04);
+    --form-input-bg:           #F5FAF1;
+    --form-input-border:       #93C5A0;
+    --form-input-text:         #064734;
+    --form-input-placeholder:  #497C6B;
     --form-input-hover-bg:     #FFFFFF;
-    --form-input-hover-border: #475569;
+    --form-input-hover-border: #18604A;
     --form-input-focus-bg:     #FFFFFF;
-    --form-input-focus-border: #0284C7;
-    --form-icon-color:         #64748B;
-    --form-focus-ring:         0 0 0 4px rgba(2, 132, 199, 0.18), 0 2px 8px rgba(2, 132, 199, 0.10);
-    --form-label-color:        #0F172A;
+    --form-input-focus-border: #064734;
+    --form-icon-color:         #366E5E;
+    --form-focus-ring:         0 0 0 4px rgba(6, 71, 52, 0.15), 0 2px 8px rgba(6, 71, 52, 0.08);
+    --form-label-color:        #064734;
 }
