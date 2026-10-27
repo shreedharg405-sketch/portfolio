@@ -5,10 +5,14 @@
   "main": "functions/api/contact.js",
   "scripts": {
     "build": "node build.js",
+    "deploy": "wrangler deploy",
     "start": "npx --yes serve dist -l 3000",
     "preview": "npx --yes serve dist -l 3000"
   },
   "dependencies": {
     "resend": "^4.1.2"
+  },
+  "devDependencies": {
+    "wrangler": "^4.153.0"
   }
 }

@@ -56,7 +56,9 @@ const REQUIRED_PORTFOLIO_FILES = [
     'favicon.ico',
     '_headers',
     path.join('assets', 'resume.pdf'),
-    path.join('functions', 'api', 'contact.js')
+    path.join('functions', 'api', 'contact.js'),
+    path.join('functions', 'worker.js'),
+    'wrangler.jsonc'
 ];
 
 for (const rel of REQUIRED_PORTFOLIO_FILES) {
