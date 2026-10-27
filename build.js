@@ -108,6 +108,11 @@ if (fs.existsSync(path.join(ROOT_DIR, 'public'))) {
     copyRecursiveSync(path.join(ROOT_DIR, 'public'), path.join(DIST_DIR, 'public'));
 }
 
+// Publish search engine files at the deployed site root.
+for (const rootFile of ['robots.txt', 'sitemap.xml']) {
+    fs.copyFileSync(path.join(ROOT_DIR, rootFile), path.join(DIST_DIR, rootFile));
+}
+
 // 5. Security & Isolation Audit on dist/
 console.log('🔒 Performing Security & Isolation Audit on dist/...');
 
